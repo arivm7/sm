@@ -1,0 +1,160 @@
+{
+    // Шаблоны исполняемых комманд.
+    // Ищется в поле actions[][cmd] и меняется на поле commands[][value]
+    // на место %S% подставляется значение поля actions[][param]
+    "commands":
+    [
+        {"name": "%winbox64win%", "value": "/home/ar/bin/wine.sh /home/user/bin/Mikrotik/winbox64.exe %S"},
+        {"name": "%winbox%",      "value": "/usr/bin/konsole --force-reuse --new-tab -e /home/user/bin/winbox_run.sh %S%"},
+        {"name": "%xdg-open%",    "value": "/usr/bin/xdg-open %S%"},
+        {"name": "%ssh%",         "value": "/usr/bin/konsole --force-reuse --new-tab -e /usr/bin/ssh %S%"},
+        {"name": "%konsole%",     "value": "/usr/bin/konsole -e %S%"},
+        // %edit% -- Обязательная комманда для вызова внешнего редактора для редактирования конфигурационного файла
+        {"name": "%edit%",        "value": "/usr/bin/konsole --force-reuse --new-tab -e /usr/bin/kate %S%"}
+    ],
+
+    "types":            /*      Типы элементов меню. Реально этот раздел не используется                                */
+    {                   /*      и его можно удалить, используются только фактические цифры 1,2,4                        */
+        "NA":      0,   /* 0 -- неизвестный тип элемнта меню. Реально не используется                                   */
+        "submenu": 1,   /* 1 -- Подменю. Означает, что есть єлемент "menu" содержащий все пункты положенные для меню    */
+        "item":    2,   /* 2 -- Элемент меню. Содержит конечные действия                                                */
+        "divider": 4    /* 4 -- Разделилель для группировки одноранговых меню. Просто полоса.                           */
+    },
+
+    "menu":
+    {
+        "title": "Название корневого меню",                     //   Название меню (не обязательно)
+        "default_item": -1,                                     //   Пункт меню по умолчанию начиная с "0". Если с минусом, то считается с конца. "-2" -- это предпоследний пункт. (не обязательно)
+        "items":                                                // * Элементы меню (обязательно)
+        [
+            {
+                "title_str": "Элемент подменю 1",               //   Название пункта меню
+                "title_hint": "Описание элемента меню 1...",    // * Описание пункта меню, отображаемое внизу таблицы
+                "type": 1,                                      // * Тип элемента: 1 -- подменю (обязательно)
+                "actions":                                      // * Действия привязанные к строке меню
+                [
+                    {   "name": ">>>",                          // * Название действия
+                        "hot_key_str": "0",                     //   Отображаемая подсказка по короткой клавише
+                        "hot_key_code": "0"}                    //   короткая клавиша
+                ],
+
+                "menu":                                         //   Вложенное подменю
+                    {
+                        "title": "Подменю 1",                   //   Название вложенного меню (не обязательно)
+                        "default_item": 0,                      //   пункт по умолчанию
+                        "items":                                // * Элементы меню (обязательно)
+                        [
+                            {
+                                "title_str": "Элемент меню",                            // * Элемент меню (обязательно)
+                                "title_hint": "Описание элемента меню...",              //   Описание (не обязательно)
+                                "type": 2,                                              // * Тип элемента: 2 -- элемент меню (обязательно)
+                                "ip": "10.20.30.40", "user": "user", "pass": "pass",    // параметры ip, user, pass для вставки в действия
+                                "actions":                                              // Список действия для этого элементв меню
+                                [
+                                    {
+                                        "name": "winbox",                               // Название комманды
+                                        "hot_key_str": "0",                             // подсказка по горячей клавише. Можно использовать '&' для подсветки
+                                        "hot_key_code": "0",                            // горячая клавиша
+                                        "cmd": "%winbox%",                              // полная комманда или указатель на шаблон комманд из commands[][name].
+                                                                                        // Может включать %S% этот макрос будет заменён на actions[][param]
+                                        "param": "%IP%:18291 %U% %P%"                   // параметры для комманды. %IP%, %U%, %P% меняются на ip, user и pass из items[]
+                                    },
+                                    {"name": "WEB",    "hot_key_str": "1", "hot_key_code": "1", "cmd": "%xdg-open%", "param": "https://%U%@%IP%:10443"},
+                                    {"name": "zabbix", "hot_key_str": "z", "hot_key_code": "z", "cmd": "%xdg-open%", "param": "https://zabbix.my/zabbix.php?action=map.view&sysmapid=17"}
+                                ]
+                            },
+                            {
+                                "title_str": "Второй элемент меню",
+                                "title_hint": "Оисание второго элемента меню...",
+                                "type": 2,
+                                "ip": "50.60.70.80", "user": "kassa1", "pass": "paskassa1",
+                                "actions":
+                                [
+                                    {"name": "winbox", "hot_key_str": "t", "hot_key_code": "t", "cmd": "%winbox%",   "param": "%IP%:18291 %U% %P%"},
+                                    {"name": "WEB",    "hot_key_str": "",  "hot_key_code": "",  "cmd": "%xdg-open%", "param": "https://%U%@%IP%:10443"},
+                                    {"name": "zabbix", "hot_key_str": "",  "hot_key_code": "",  "cmd": "%xdg-open%", "param": "https://zabbix.my/zabbix.php?action=map.view&sysmapid=30"}
+                                ]
+                            }
+                        ]
+                    }
+                },
+
+                {
+                    "title_str": "Второй Элемннт",
+                    "title_hint": "Описание этого элемента...",
+                    "type": 2,
+                    "ip": "30.40.50.60", "user": "view", "pass": "passviwer",
+                    "actions":
+                    [
+                        {"name": "winbox", "hot_key_str": "c", "hot_key_code": "c", "cmd": "%winbox%", "param": "%IP%:20000 %U% %P%"},
+                        {"name": "web", "hot_key_str": "&web", "hot_key_code": "w", "cmd": "%xdg-open%", "param": "http://%U%@%IP%:8000"}
+                    ]
+                },
+
+                {
+                    "type": 4                                                           // * Тип элемента: 4 -- Строка-отступ
+                },
+
+                {
+                    "title_str": "SSH",
+                    "title_hint": "SSH...",
+                    "type": 1,
+                    "actions":
+                    [
+                        {"name": ">>>", "hot_key_str": "&ssh", "hot_key_code": "s"}
+                    ],
+                    "menu":
+                    {
+                        "default_item": -1,
+                        "items":
+                        [
+                            {
+                                "title_str": "Server1", "title_hint": "Server1...", "type": 2,
+                                "ip": "40.50.60.70", "user": "adm", "pass": "",
+                                "actions":
+                                [
+                                    { "name": "ssh", "hot_key_str": "b", "hot_key_code": "b", "cmd": "%ssh%", "param": "-p 12345 user@bill.local" },
+                                    { "name": "tor restart", "hot_key_str": "", "hot_key_code": "", "cmd": "%ssh%", "param": "-p 12345 user@adm.local  /home/adm/bin/tor_restart.sh" },
+                                    { "name": "reboot", "hot_key_str": "", "hot_key_code": "", "cmd": "%ssh%", "param": "-p 12345 %U%@%IP%  sudo reboot now" },
+                                    { "name": "pwr off", "hot_key_str": "", "hot_key_code": "", "cmd": "%ssh%", "param": "-p 12345 %U%@%IP%  sudo shutdown now" },
+                                    { "name": "copy key", "hot_key_str": "", "hot_key_code": "", "cmd": "%konsole%", "param": "/usr/bin/ssh-copy-id -p 12345 %U%@%IP%" }
+                                ]
+                            },
+                        {
+                            "title_str": "Work-PC", "title_hint": "Управление Work-PC...", "type": 2,
+                            "actions":
+                            [
+                                { "name": "ssh", "hot_key_str": "s&tation", "hot_key_code": "t", "cmd": "%ssh%", "param": "-p 12345 adm@1.2.3.4" },
+                                { "name": "tor restart", "hot_key_str": "", "hot_key_code": "", "cmd": "%ssh%", "param": "-p 12345 adm@1.2.3.4 /home/adm/bin/tor_restart.sh" },
+                                { "name": "reboot", "hot_key_str": "re&boot", "hot_key_code": "b", "cmd": "%ssh%", "param": "-p 12345 adm@1.2.3.4 sudo reboot now" },
+                                { "name": "pwr off", "hot_key_str": "", "hot_key_code": "", "cmd": "%ssh%", "param": "-p 12345 adm@1.2.3.4 sudo shutdown now" },
+                                { "name": "copy key", "hot_key_str": "", "hot_key_code": "", "cmd": "%konsole%", "param": "/usr/bin/ssh-copy-id -p 12345 adm@1.2.3.4" }
+                            ]
+                        },
+                        {
+                            "title_str": "Config Script", "title_hint": "Run Config Script...", "type": 2,
+                            "actions":
+                            [
+                                { "name": "ssh", "hot_key_str": "", "hot_key_code": "", "cmd": "%konsole%", "param": "/home/user/bin/init_soft.sh" }
+                            ]
+                        },
+                        {
+                            "title_str": "Генерировать локальные ключи", "title_hint": "Генерировать локальные ключи ...", "type": 2,
+                            "actions":
+                            [
+                                { "name": "copy key", "hot_key_str": "k", "hot_key_code": "k", "cmd": "/usr/bin/ssh-keygen", "param": "" }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "title_str": "WINBOX", "title_hint": "Запуск Winbox...", "type": 2,
+                "actions": [
+                    {"name": "winbox", "hot_key_str": "b", "hot_key_code": "b", "cmd": "%winbox%", "param": ""},
+                    {"name": "wine",   "hot_key_str": "w", "hot_key_code": "w", "cmd": "%winbox2win%", "param": ""}
+                ]
+            }
+        ]
+    }
+}

@@ -14,6 +14,8 @@ add_executable(sm
     src/menu_elements.cpp
     src/menu_elements.hpp
     conf/sm.conf.json
+    README.md
+    .gitignore
 
 )
 
@@ -24,13 +26,13 @@ add_custom_command(
     # Копирование файла.
     COMMAND ${CMAKE_COMMAND} -E copy
             $<TARGET_FILE:sm>  # Полный путь к скомпилированному файлу (exe, dll, so и т.д.)
-            "/home/ar/bin"     # Путь куда копировать (можно использовать абсолютный или относительный путь)
+            "$ENV{HOME}/bin"     # Путь куда копировать (можно использовать абсолютный или относительный путь)
 
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_SOURCE_DIR}/output/
 
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/conf/sm.conf.json ${CMAKE_SOURCE_DIR}/output/
 
-    COMMENT "Копирование sm в директорию /home/ar/bin \n" +
+    COMMENT "Копирование sm в директорию $ENV{HOME}/bin \n" +
             "Копирование sm в директорию ${CMAKE_SOURCE_DIR}/output/ \n" +
             "Копирование ${CMAKE_SOURCE_DIR}/conf/sm.conf.json в директорию ${CMAKE_SOURCE_DIR}/output/ \n"
 

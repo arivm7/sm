@@ -13,10 +13,6 @@ add_executable(sm
     src/main.cpp
     src/menu_elements.cpp
     src/menu_elements.hpp
-    conf/sm.conf.json
-    README.md
-    .gitignore
-
 )
 
 # Команда выполняется после сборки цели sm

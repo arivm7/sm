@@ -535,7 +535,7 @@ void MenuTable::print() const
     }
     std::wcout << make_line(TBL_LINE_CN) << std::endl;
     std::wcout << TBL_CH_LF_LF << L"       " << TBL_CH_CN__I << L" " << format_str(hint, getWidth(), L' ', FORMAT_STR_LEFT) << L" " << TBL_CH_RT_RT << std::endl;
-    std::wcout << TBL_CH_LF_LF << L"       " << TBL_CH_CN__I << L" " << format_str(insertHighLightHotKey(L"[Esc|~] Выход | &Edit"), getWidth(), L' ', FORMAT_STR_LEFT) << L" " << TBL_CH_RT_RT << std::endl;
+    std::wcout << TBL_CH_LF_LF << L"       " << TBL_CH_CN__I << L" " << format_str(insertHighLightHotKey(L"[~|Esc] Выход | &Edit"), getWidth(), L' ', FORMAT_STR_LEFT) << L" " << TBL_CH_RT_RT << std::endl;
     std::wcout << make_line(TBL_LINE_DN) << std::endl;
 };
 

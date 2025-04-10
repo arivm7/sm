@@ -4,13 +4,13 @@
     // на место %S% подставляется значение поля actions[][param]
     "commands":
     [
-        {"name": "%winbox64win%", "value": "/home/user/bin/wine.sh /home/user/bin/Mikrotik/winbox64.exe %S"},
+        {"name": "%winbox64win%", "value": "/usr/bin/wine /home/user/bin/winbox64.exe %S"},
         {"name": "%winbox%",      "value": "/usr/bin/konsole --force-reuse --new-tab -e /home/user/bin/winbox_run.sh %S%"},
         {"name": "%xdg-open%",    "value": "/usr/bin/xdg-open %S%"},
         {"name": "%ssh%",         "value": "/usr/bin/konsole --force-reuse --new-tab -e /usr/bin/ssh %S%"},
         {"name": "%konsole%",     "value": "/usr/bin/konsole -e %S%"},
         // %edit% -- Обязательная комманда для вызова внешнего редактора для редактирования конфигурационного файла
-        {"name": "%edit%",        "value": "/usr/bin/konsole --force-reuse --new-tab -e /usr/bin/kate %S%"}
+        {"name": "%edit%",        "value": "/usr/bin/kate %S%"}
     ],
 
     "types":            /*      Типы элементов меню. Реально этот раздел не используется                                */
@@ -49,16 +49,16 @@
                                 "title_str": "Элемент меню",                            // * Название пункта меню (обязательно)
                                 "title_hint": "Описание элемента меню...",              //   Описание (не обязательно)
                                 "type": 2,                                              // * Тип элемента: 2 -- элемент меню (обязательно)
-                                "ip": "10.20.30.40", "user": "user", "pass": "pass",    // параметры ip, user, pass для вставки в действия
-                                "actions":                                              // Список действия для этого элементв меню
+                                "ip": "10.20.30.40", "user": "user", "pass": "pass",    //   параметры ip, user, pass для вставки в действия
+                                "actions":                                              // * Список действия для этого элементв меню
                                 [
                                     {
-                                        "name": "winbox",                               // Название комманды
-                                        "hot_key_str": "0",                             // подсказка по горячей клавише. Можно использовать '&' для подсветки
-                                        "hot_key_code": "0",                            // горячая клавиша
-                                        "cmd": "%winbox%",                              // полная комманда или указатель на шаблон комманд из commands[][name].
-                                                                                        // Может включать %S% этот макрос будет заменён на actions[][param]
-                                        "param": "%IP%:18291 %U% %P%"                   // параметры для комманды. %IP%, %U%, %P% меняются на ip, user и pass из items[]
+                                        "name": "winbox",                               // * Название комманды
+                                        "hot_key_str": "0",                             //   подсказка по горячей клавише. Можно использовать '&' для подсветки
+                                        "hot_key_code": "0",                            //   горячая клавиша
+                                        "cmd": "%winbox%",                              // * полная комманда или указатель на шаблон комманд из commands[][name].
+                                                                                        //   Может включать %S% этот макрос будет заменён на actions[][param]
+                                        "param": "%IP%:18291 %U% %P%"                   //   параметры для комманды. %IP%, %U%, %P% меняются на ip, user и pass из items[]
                                     },
                                     {"name": "WEB",    "hot_key_str": "1", "hot_key_code": "1", "cmd": "%xdg-open%", "param": "https://%U%@%IP%:10443"},
                                     {"name": "zabbix", "hot_key_str": "z", "hot_key_code": "z", "cmd": "%xdg-open%", "param": "https://zabbix.my/zabbix.php?action=map.view&sysmapid=17"}
@@ -93,7 +93,8 @@
                 },
 
                 {
-                    "type": 4  // ---------------------------------------------------    * Тип элемента: 4 -- Строка-отступ
+                    // Строка-разделилель элементов меню
+                    "type": 4                                                           // * Тип элемента: 4 -- Строка-разделилель
                 },
 
                 {

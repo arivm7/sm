@@ -1,6 +1,7 @@
 output
 .qtcreator
 build
+*.xcf
 
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------

@@ -15,8 +15,8 @@ extern std::string LOCALE;
 
 const int VERSION_MAJOR         = 0;
 const int VERSION_MINOR         = 1;
-const int VERSION_UPDATE        = 2;
-const std::wstring VERSION_DATE = L"2025-03-25";
+const int VERSION_UPDATE        = 3;
+const std::wstring VERSION_DATE = L"2025-04-10";
 
 extern const std::wstring getVersion();
 
@@ -242,7 +242,7 @@ const TermColors termColors;
 const wchar_t HOT_KEYS_LIST[] = L"abcdfghijklmnoprtuvwxyz0123456789"; // eqs
 #define KEY_QUIT             (wchar_t)'`'
 #define KEY_NONE             (wchar_t)0
-#define KEY_EDIT             (wchar_t)'e'
+#define KEY_EDIT             (wchar_t)'E'
 #define KEY_STR_NONE         termColors.dark_gray + L"." + termColors.off
 #define CHAR_HIGHLIGHT       (wchar_t)'&'
 #define COLOR_HIGHLIGHT      termColors.underline + termColors.yellow
